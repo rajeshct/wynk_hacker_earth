@@ -1,0 +1,106 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+}
+
+android {
+    compileSdkVersion build_versions.compile_sdk as int
+    defaultConfig {
+        applicationId "tv.airtel.wynktest"
+        minSdkVersion build_versions.min_sdk as int
+        targetSdkVersion build_versions.target_sdk as int
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        versionCode 2
+        versionName "1.0"
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+
+}
+
+dependencies {
+    implementation deps.file_tree
+    implementation deps.facebook.stetho
+
+    implementation 'com.github.dfloureiro:news-api-kotlin:v2.1'
+
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.material
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.cardview
+    implementation deps.androidx.constraint_layout
+    implementation deps.androidx.work_manager
+
+    implementation deps.androidx.paging.common
+    implementation deps.androidx.paging.runtime
+    implementation deps.androidx.paging.rx
+
+    implementation deps.androidx.room.runtime
+    implementation deps.androidx.room.rx
+    kapt deps.androidx.room.compiler
+    implementation deps.androidx.room.testing
+
+    implementation deps.androidx.lifecycle.extension
+    kapt deps.androidx.lifecycle.compiler
+    implementation deps.androidx.lifecycle.reactive_streams
+    implementation deps.androidx.lifecycle.testing
+
+    implementation 'androidx.core:core-ktx:1.2.0-alpha03'
+    implementation deps.androidx.ktx.fragment
+    implementation deps.androidx.ktx.palette
+    implementation deps.androidx.ktx.collection
+    implementation deps.androidx.ktx.viewmodel
+    implementation deps.androidx.ktx.reactive_streams
+
+    implementation deps.rx.rxjava2
+    implementation deps.rx.rxandroid
+    implementation deps.rx.rxkotlin
+
+    implementation deps.epoxy.core
+    implementation deps.epoxy.databinding
+    implementation deps.epoxy.paging
+    kapt deps.epoxy.processor
+
+    implementation deps.kotlin.stdlib_jdk7
+
+    implementation deps.kotlin.coroutines.core
+    implementation deps.kotlin.coroutines.rx
+    implementation deps.kotlin.coroutines.android
+
+    implementation deps.kodein.runtime
+    implementation deps.kodein.androidx
+
+    implementation deps.timber
+    implementation deps.glide
+    kapt deps.glide_compiler
+    implementation deps.glide_transformations
+}
